@@ -9,7 +9,7 @@ import (
 
 func main() {
 	router := gin.Default()
-	router.Static("/assets", "./assets")
+	router.Static("/public", "./public")
 	router.SetTrustedProxies(nil)
 
 	router.LoadHTMLGlob("templates/*")
