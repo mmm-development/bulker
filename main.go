@@ -1,25 +1,24 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/template/html"
 )
 
 func main() {
-	router := gin.Default()
-	router.Static("/public", "./public")
-	router.SetTrustedProxies(nil)
+	engine := html.New("./templates", ".html")
+	app := fiber.New(
+		fiber.Config{
+			Views: engine,
+		},
+	)
+	app.Static("/public", "./public")
+	app.Get("/", mainPage)
+	app.Listen(":8000")
+}
 
-	router.LoadHTMLGlob("templates/*")
-
-	router.GET("/", func(c *gin.Context) {
-		name := c.DefaultQuery("name", "Anonymous")
-		c.HTML(http.StatusOK, "index.html", gin.H{
-			"title": fmt.Sprintf("Hello %s!", name),
-		})
+func mainPage(c *fiber.Ctx) error {
+	return c.Render("index", fiber.Map{
+		"name": c.Query("name", "World"),
 	})
-
-	router.Run(":8080")
 }

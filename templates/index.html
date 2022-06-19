@@ -1,11 +1,20 @@
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>{{ .title }}</title>
-        <script src="/assets/app.js"></script>
-    </head>
-    <body>
-        <h1>
-            {{ .title }}
-        </h1>
-    </body>
+<head>
+    <meta charset="UTF-8">   
+	<meta name='viewport' content='width=device-width,initial-scale=1'>
+    
+    <link rel='stylesheet' href='/public/global.css'>
+	<link rel='icon' type='image/png' href='/favicon.png'>
+    <script src="/public/app.js"></script>
+    <script defer src='/public/build/bundle.js'></script>
+ 
+    <title>{{ .title }}</title>
+</head>
+<body>
+    <h1>
+        Hello {{ .name }}!
+    </h1>
+    <main-app />
+</body>
 </html>
